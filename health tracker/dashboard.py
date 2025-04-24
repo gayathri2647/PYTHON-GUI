@@ -19,7 +19,7 @@ class Dashboard(QWidget):
         self.mood_entry_button.clicked.connect(self.log_mood)
         layout.addWidget(self.mood_entry_button)
 
-        self.history_button = QPushButton("View Mood History")
+        self.history_button = QPushButton("View History")
         self.history_button.clicked.connect(self.view_history)
         layout.addWidget(self.history_button)
 

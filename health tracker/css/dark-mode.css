@@ -1,0 +1,66 @@
+/* Dark Mode Theme */
+:root {
+    /* Dark Theme Colors */
+    --primary-color: #64b5f6;
+    --secondary-color: #81c784;
+    --background-color: #121212;
+    --card-background: #1e1e1e;
+    --text-color: #e0e0e0;
+    --border-color: #333333;
+    --input-background: #2a2a2a;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --error-color: #e57373;
+    --success-color: #81c784;
+}
+
+/* Override specific styles for dark mode */
+.mood-option input:checked + .mood-icon {
+    filter: drop-shadow(0 0 3px var(--primary-color));
+}
+
+.symptom-tag {
+    background-color: #333333;
+}
+
+.calendar-day.today {
+    border-color: var(--primary-color);
+}
+
+.calendar-day:hover {
+    background-color: #333333;
+}
+
+.auth-link {
+    color: var(--primary-color);
+}
+
+.toggle-slider::after {
+    background-color: #f0f0f0;
+}
+
+/* Improve contrast for form elements */
+.form-group input,
+.form-group textarea,
+.history-filters select {
+    color: var(--text-color);
+}
+
+/* Adjust notification for dark mode */
+.notification {
+    background-color: #2a2a2a;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Improve visibility of buttons in dark mode */
+.button {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.icon-button:hover {
+    background-color: #333333;
+}
+
+/* Adjust calendar colors */
+.calendar-day.has-entry::after {
+    background-color: var(--primary-color);
+}

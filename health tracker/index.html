@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Tracker</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link id="theme-style" rel="stylesheet" href="">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header>
+            <div class="logo">
+                <h1>Mental Health Tracker</h1>
+            </div>
+            <div class="user-controls">
+                <button id="theme-toggle" class="icon-button" title="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="login-button" class="button">Sign In</button>
+                <div id="user-profile" class="hidden">
+                    <span id="username"></span>
+                    <button id="logout-button" class="button">Sign Out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main>
+            <div class="dashboard hidden" id="dashboard">
+                <!-- Dashboard Navigation -->
+                <nav class="dashboard-nav">
+                    <button class="nav-button active" data-target="mood-tracker">Mood Tracker</button>
+                    <button class="nav-button" data-target="mood-history">History</button>
+                    <button class="nav-button" data-target="insights">Insights</button>
+                    <button class="nav-button" data-target="settings">Settings</button>
+                </nav>
+
+                <!-- Mood Tracker Section -->
+                <section id="mood-tracker" class="dashboard-section active">
+                    <h2>How are you feeling today?</h2>
+                    <div class="date-display">
+                        <span id="current-date"></span>
+                    </div>
+                    
+                    <form id="mood-form">
+                        <div class="mood-selector">
+                            <h3>Select your mood:</h3>
+                            <div class="mood-options">
+                                <label class="mood-option">
+                                    <input type="radio" name="mood" value="5">
+                                    <span class="mood-icon">😄</span>
+                                    <span class="mood-label">Great</span>
+                                </label>
+                                <label class="mood-option">
+                                    <input type="radio" name="mood" value="4">
+                                    <span class="mood-icon">🙂</span>
+                                    <span class="mood-label">Good</span>
+                                </label>
+                                <label class="mood-option">
+                                    <input type="radio" name="mood" value="3">
+                                    <span class="mood-icon">😐</span>
+                                    <span class="mood-label">Okay</span>
+                                </label>
+                                <label class="mood-option">
+                                    <input type="radio" name="mood" value="2">
+                                    <span class="mood-icon">🙁</span>
+                                    <span class="mood-label">Bad</span>
+                                </label>
+                                <label class="mood-option">
+                                    <input type="radio" name="mood" value="1">
+                                    <span class="mood-icon">😞</span>
+                                    <span class="mood-label">Terrible</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="symptoms-selector">
+                            <h3>Symptoms (if any):</h3>
+                            <div class="symptoms-options">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="symptoms" value="anxiety">
+                                    <span class="checkbox-label">Anxiety</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="symptoms" value="depression">
+                                    <span class="checkbox-label">Depression</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="symptoms" value="insomnia">
+                                    <span class="checkbox-label">Insomnia</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="symptoms" value="fatigue">
+                                    <span class="checkbox-label">Fatigue</span>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" name="symptoms" value="stress">
+                                    <span class="checkbox-label">Stress</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="notes">Personal Notes:</label>
+                            <textarea id="notes" name="notes" rows="4" placeholder="How was your day? What's on your mind?"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="button primary">Save Entry</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Mood History Section -->
+                <section id="mood-history" class="dashboard-section">
+                    <h2>Your Mood History</h2>
+                    <div class="view-controls">
+                        <button class="view-button active" data-view="list">List View</button>
+                        <button class="view-button" data-view="calendar">Calendar View</button>
+                    </div>
+                    
+                    <div id="history-list" class="history-view active">
+                        <div class="history-filters">
+                            <select id="history-filter">
+                                <option value="all">All Entries</option>
+                                <option value="week">Past Week</option>
+                                <option value="month">Past Month</option>
+                                <option value="year">Past Year</option>
+                            </select>
+                        </div>
+                        <div id="entries-container">
+                            <!-- Entries will be populated here -->
+                            <div class="no-entries-message">No entries yet. Start tracking your mood!</div>
+                        </div>
+                    </div>
+                    
+                    <div id="calendar-view" class="history-view">
+                        <div class="calendar-container">
+                            <div class="calendar-header">
+                                <button id="prev-month">&lt;</button>
+                                <h3 id="calendar-month">Month Year</h3>
+                                <button id="next-month">&gt;</button>
+                            </div>
+                            <div class="calendar-grid">
+                                <!-- Calendar will be generated here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Insights Section -->
+                <section id="insights" class="dashboard-section">
+                    <h2>Your Mood Insights</h2>
+                    <div class="insights-container">
+                        <div class="insight-card">
+                            <h3>Mood Trends</h3>
+                            <div class="chart-container">
+                                <canvas id="mood-chart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-card">
+                            <h3>AI Analysis</h3>
+                            <div id="ai-insights">
+                                <p class="login-required-message">Sign in to get AI-powered insights about your mood patterns.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-card">
+                            <h3>Mood Streak</h3>
+                            <div class="streak-container">
+                                <div class="streak-count">0</div>
+                                <div class="streak-label">days</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="dashboard-section">
+                    <h2>Settings</h2>
+                    <div class="settings-container">
+                        <div class="settings-group">
+                            <h3>Appearance</h3>
+                            <div class="setting-item">
+                                <label class="toggle-switch">
+                                    <span class="setting-label">Dark Mode</span>
+                                    <input type="checkbox" id="dark-mode-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <h3>Notifications</h3>
+                            <div class="setting-item">
+                                <label class="toggle-switch">
+                                    <span class="setting-label">Daily Reminder</span>
+                                    <input type="checkbox" id="reminder-toggle">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item" id="reminder-time-container">
+                                <label for="reminder-time">Reminder Time:</label>
+                                <input type="time" id="reminder-time" value="20:00">
+                            </div>
+                        </div>
+                        
+                        <div class="settings-group">
+                            <h3>Data Management</h3>
+                            <div class="setting-item">
+                                <button id="export-data" class="button">Export Data</button>
+                                <button id="import-data" class="button">Import Data</button>
+                            </div>
+                            <div class="setting-item cloud-only">
+                                <button id="backup-data" class="button">Backup to Cloud</button>
+                                <button id="restore-data" class="button">Restore from Cloud</button>
+                            </div>
+                            <div class="setting-item">
+                                <button id="clear-data" class="button danger">Clear All Data</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Authentication Section -->
+            <div id="auth-section">
+                <div class="auth-container">
+                    <h2>Sign In to Your Account</h2>
+                    <p>Sign in to sync your data across devices and get AI-powered insights.</p>
+                    
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="signin">Sign In</button>
+                        <button class="auth-tab" data-tab="signup">Sign Up</button>
+                    </div>
+                    
+                    <div id="signin-form" class="auth-form active">
+                        <div class="form-group">
+                            <label for="signin-email">Email</label>
+                            <input type="email" id="signin-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signin-password">Password</label>
+                            <input type="password" id="signin-password" required>
+                        </div>
+                        <button type="submit" id="signin-button" class="button primary">Sign In</button>
+                        <p class="auth-message">Don't have an account? <a href="#" class="auth-link" data-action="show-signup">Sign up</a></p>
+                    </div>
+                    
+                    <div id="signup-form" class="auth-form">
+                        <div class="form-group">
+                            <label for="signup-email">Email</label>
+                            <input type="email" id="signup-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-password">Password</label>
+                            <input type="password" id="signup-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signup-confirm-password">Confirm Password</label>
+                            <input type="password" id="signup-confirm-password" required>
+                        </div>
+                        <button type="submit" id="signup-button" class="button primary">Sign Up</button>
+                        <p class="auth-message">Already have an account? <a href="#" class="auth-link" data-action="show-signin">Sign in</a></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Section -->
+        <footer>
+            <p>&copy; 2025 Mental Health Tracker. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Notification Component -->
+    <div id="notification" class="notification hidden">
+        <div class="notification-content">
+            <span id="notification-message"></span>
+            <button id="notification-close" class="notification-close">&times;</button>
+        </div>
+    </div>
+
+    <!-- AWS Amplify -->
+    <script src="https://cdn.jsdelivr.net/npm/aws-amplify@5.0.4/dist/aws-amplify.min.js"></script>
+    
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/insights.js"></script>
+    <script src="js/backup.js"></script>
+</body>
+</html>

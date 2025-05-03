@@ -1,0 +1,39 @@
+{
+  "name": "mental-health-tracker",
+  "version": "1.0.0",
+  "description": "A web-based mental health tracker with AI insights",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest",
+    "start": "http-server -o"
+  },
+  "keywords": [
+    "mental-health",
+    "mood-tracker",
+    "aws",
+    "cognito",
+    "dynamodb",
+    "comprehend",
+    "s3"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0"
+  },
+  "dependencies": {
+    "aws-amplify": "^5.0.4",
+    "chart.js": "^4.3.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/tests/mocks/styleMock.js"
+    },
+    "setupFiles": [
+      "<rootDir>/tests/setup.js"
+    ]
+  }
+}
